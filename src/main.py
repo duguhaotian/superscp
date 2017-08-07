@@ -23,9 +23,16 @@ arr = [ta, tb, tc, td]
 for item in arr:
     print(item)
 
-for tl in tt:
-    arr.index()
+#for tl in tt:
+#    arr.index()
 arr.remove(td)
 print("----------remove------------")
 for item in arr:
     print(item)
+
+print("----------------------------")
+if tc == td:
+    print("success")
+else:
+    print("failed")
+

@@ -8,8 +8,8 @@ and node depond on tools
 class Node:
     'define Node members'
 
-    def __init__(self, nid, nip, mask=None, hostname=None):
-        self.nid = nid
+    def __init__(self, mac, nip, mask=None, hostname=None):
+        self.nid = mac 
         self.nip = nip
         self.mask = mask
         self.hostname = hostname
