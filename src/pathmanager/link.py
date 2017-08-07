@@ -5,6 +5,7 @@ define link data struct
 and link depond on tools
 '''
 import Node
+import pickle
 
 class LinkNode(object):
     'link define the way of transfer data'
@@ -24,6 +25,7 @@ class LinkNode(object):
 class Link(object):
     def __init__(self):
         self.nodes = []
+        self.tags = None
     def insert(self, node):
         if not isinstance(node, LinkNode):
             raise TypeError("[Link/insert]: node is not LinkNode type")
@@ -40,5 +42,10 @@ class Link(object):
             self.nodes[idx] = node
         except ValueError:
             print("[Link/update]: can not find node in link.")
-    def save(self):
-        pass
+    def store(self):
+        f = open('.link.data', 'wb')
+        pickle.dump(self.nodes, f)
+    def restore(self):
+        f = open('.link.data', 'rb')
+        self.nodes = pickle.load(f)
+

@@ -40,3 +40,4 @@ class Node:
         if self.nid == other.nid and self.nip == other.nip:
             return True
         return False
+
