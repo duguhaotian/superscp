@@ -4,14 +4,16 @@
 define link data struct
 and link depond on tools
 '''
+import os
 import node
 import pickle
 
 
 class Link(object):
-    def __init__(self, tags=None):
+    def __init__(self, name, tags=None):
         self.nodes = []
         self.tags = tags
+        self.name = name
     def get(self):
         return self.nodes
     def show(self):
@@ -22,7 +24,6 @@ class Link(object):
         if s != "":
             s = s[0:len(s)-3]
         print(s)
-
     def insert(self, lnode):
         if not isinstance(lnode, node.Node):
             raise TypeError("[Link/insert]: node is not Node type")
@@ -43,7 +44,8 @@ class Link(object):
 class LinkStore(object):
     def __init__(self, serial_filename):
         self.links = []
-        self.serial_filename = serial_filename
+        rdir=os.path.split(os.path.realpath(__file__))[0]
+        self.serial_filename = rdir + "/" + serial_filename
     def get(self, idx):
         return self.links[idx]
     def search(self, link=None, tags=None):
