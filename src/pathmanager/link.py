@@ -12,6 +12,17 @@ class Link(object):
     def __init__(self, tags=None):
         self.nodes = []
         self.tags = tags
+    def get(self):
+        return self.nodes
+    def show(self):
+        s = ""
+        for nd in self.nodes:
+            s += nd.nip
+            s += "-->"
+        if s != "":
+            s = s[0:len(s)-3]
+        print(s)
+
     def insert(self, lnode):
         if not isinstance(lnode, node.Node):
             raise TypeError("[Link/insert]: node is not Node type")
@@ -29,7 +40,7 @@ class Link(object):
         except ValueError:
             print("[Link/update]: can not find node in link.")
 
-class linkStore(object):
+class LinkStore(object):
     def __init__(self, serial_filename):
         self.links = []
         self.serial_filename = serial_filename
@@ -75,7 +86,9 @@ class linkStore(object):
     def store(self):
         f = open(self.serial_filename, 'wb')
         pickle.dump(self.links, f)
+        f.close()
     def restore(self):
         f = open(self.serial_filename, 'rb')
         self.links = pickle.load(f)
+        f.close()
 
