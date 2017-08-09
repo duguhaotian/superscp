@@ -48,6 +48,18 @@ class LinkStore(object):
         self.serial_filename = rdir + "/" + serial_filename
     def get(self, idx):
         return self.links[idx]
+    def search_by_target(self, source, target):
+        if source == None or target == None:
+            return
+        if not isinstance(source, node.Node) or not isinstance(target, node.Node):
+            raise TypeError("[LinkStore/search_by_target]: source or target is not Node type")
+        rt = []
+        i = -1
+        for tl in self.links:
+            i += 1
+            if source.nid == tl[0].nid and target.nid == tl[-1].nid:
+                rt.append(i)
+        return rt
     def search(self, link=None, tags=None):
         'search by tags function do not support now.'
         if not isinstance(link, Link):

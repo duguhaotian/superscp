@@ -8,6 +8,10 @@ import link
 
 lstore = link.LinkStore('.paths.data')
 
+def search(link=None, tags=None):
+    lstore.search(link, tags)
+def search_by_target(source, target):
+    lstore.search_by_target(source, target)
 def insert(link):
     lstore.insert(link)
 def remove(link):

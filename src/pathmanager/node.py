@@ -4,10 +4,12 @@
 this file define Node data struct
 and node depond on tools
 '''
+import os
 import pickle
 
 node_map = {}
-serial_filename='.node_map.data'
+rdir=os.path.split(os.path.realpath(__file__))[0]
+serial_filename=rdir + '/' + '.node_map.data'
 
 def new_node(node):
     if not isinstance(node, Node):
@@ -23,23 +25,23 @@ def rm_node(node):
     del node_map[node.nid]
 def store():
     f = open(serial_filename, 'wb')
-    pickle.dump(links, f)
+    pickle.dump(node_map, f)
     f.close()
 def restore():
     f = open(serial_filename, 'rb')
-    links = pickle.load(f)
+    node_map = pickle.load(f)
     f.close()
 
 class Node:
     'define Node members'
 
-    def __init__(self, mac, nip, mask=None, hostname=None):
+    def __init__(self, mac, nip, mask=None, hostname=None, describe=None):
         self.nid = mac 
         self.nip = nip
         self.mask = mask
         self.hostname = hostname
+        self.describe = describe 
         self.tags = None
-        self.describe = None
         self.prehost = None
     def set_prehost(self, prehost):
         'set node depend on host id'
