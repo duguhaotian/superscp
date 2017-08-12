@@ -35,10 +35,10 @@ def insert_data():
         if path == None:
             continue
         strs = line.split(',')
-        if len(strs) != 5:
+        if len(strs) != 6:
             print("invalid data line: %s" % line)
             continue
-        tnode = node.Node(strs[0], strs[1], strs[2], strs[3], strs[4]) 
+        tnode = node.Node(strs[0], strs[1], strs[2], strs[3], strs[4], strs[5]) 
         node.new_node(tnode)
         path.insert(tnode)
 

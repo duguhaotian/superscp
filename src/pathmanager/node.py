@@ -35,9 +35,10 @@ def restore():
 class Node:
     'define Node members'
 
-    def __init__(self, mac, nip, mask=None, hostname=None, describe=None):
+    def __init__(self, mac, nip, username, mask=None, hostname=None, describe=None):
         self.nid = mac 
         self.nip = nip
+        self.username = username
         self.mask = mask
         self.hostname = hostname
         self.describe = describe 
