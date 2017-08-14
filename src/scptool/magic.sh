@@ -74,25 +74,29 @@ echo "----$ip---$idx----$user------"
 
 if [ $idx -eq 1 ];then
 	echo "this is source host"
-	if [ -d xxxxtmp ];then
-		rm -rf xxxxtmp
+	if [ -d ~/xxxxtmp ];then
+		rm -rf ~/xxxxtmp
 	fi
-	mkdir xxxxtmp
+	mkdir ~/xxxxtmp
+	if [ ! -e ${srcford} ];then
+		echo "----invalid source file or dir parameter----"
+		exit -1
+	fi
+	cd $srcford
+	srcford=`pwd`
+	cd -
 	if [ -d $srcford ];then
-		cp -r $srcford xxxxtmp/
+		cp -r $srcford ~/xxxxtmp/
 	elif [ -f $srcford ];then
-		cp $srcford xxxxtmp/
+		cp $srcford ~/xxxxtmp/
 	fi
-	cp magic.sh xxxxtmp/
-	cp .data.superscp xxxxtmp/
+	cp magic.sh ~/xxxxtmp/
+	cp .data.superscp ~/xxxxtmp/
 	srcford=$(basename $srcford)
-	if [ "$srcford" == "." ];then
-		srcford=$(basename `pwd`)
-	fi
 	echo "-----new name=${srcford}--------"
 fi
 
-scp -r xxxxtmp ${user}@${ip}:~/
+scp -r ~/xxxxtmp ${user}@${ip}:~/
 echo "scp return: $?"
 set -x
 ssh ${user}@${ip} "~/xxxxtmp/magic.sh $srcford /tmp"
