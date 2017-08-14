@@ -1,0 +1,7 @@
+superscp is a tool which can scp hostA's dir or file to hostB,
+import is hostA and hostB is not in same vlan. For example:
+
+HostA's IP is 192.168.0.8
+HostB's IP is 10.10.10.10
+
+
