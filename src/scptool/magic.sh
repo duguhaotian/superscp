@@ -1,23 +1,27 @@
 #!/bin/bash
 set +x
 
-if [ $# -ne 3 ];then
-	echo "magic.sh source_file/dir target_ip target_dir"
+if [ $# -ne 2 ];then
+	echo "magic.sh source_file/dir target_dir"
 	exit -1
 fi
 
+bashpath=`dirname $0`
+echo "basepath: $bashpath"
+
 srcford=$1
-tgip=$2
-tgd=$3
+tgd=$2
 
 ips=()
 macs=()
 users=()
 i=0
+log=".superscp.log"
+touch $log
 
-datafname=".data.superscp"
+datafname="${bashpath}/.data.superscp"
 if [ ! -f $datafname ];then
-	echo "can not find data file"
+	echo "can not find data file" >> $log 2>&1
 	exit -1
 fi
 
@@ -57,9 +61,16 @@ ip=`next_ip`
 idx=$?
 if [ "${ip}" == "end" ];then
 	echo "finish"
+	if [ ! -d ~/xxxxtmp ];then
+		echo "superscp failed" >> $log 2>&1
+		exit -1
+	fi
+	mv ~/xxxxtmp/$srcford $tgd
+	rm ~/xxxxtmp -rf
+	exit 0
 fi
 user=${users[$idx]}
-echo "----$ip---$idx----$user-"
+echo "----$ip---$idx----$user------"
 
 if [ $idx -eq 1 ];then
 	echo "this is source host"
@@ -74,10 +85,17 @@ if [ $idx -eq 1 ];then
 	fi
 	cp magic.sh xxxxtmp/
 	cp .data.superscp xxxxtmp/
+	srcford=$(basename $srcford)
+	if [ "$srcford" == "." ];then
+		srcford=$(basename `pwd`)
+	fi
+	echo "-----new name=${srcford}--------"
 fi
 
 scp -r xxxxtmp ${user}@${ip}:~/
-ssh ${user}@${ip} "~/xxxxtmp/magic.sh magic.sh 192.168.122.179 /tmp"
+echo "scp return: $?"
+set -x
+ssh ${user}@${ip} "~/xxxxtmp/magic.sh $srcford /tmp"
 
 echo "ssh return: $?"
 
