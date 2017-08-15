@@ -20,7 +20,7 @@ def find_by_ip(ip):
             rt.append(value)
     return rt
 def get_node(mac):
-    if node_map.__contains__(mac)
+    if node_map.__contains__(mac):
         return node_map[mac]
     return None
 def new_node(node):
