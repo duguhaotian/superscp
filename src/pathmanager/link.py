@@ -24,6 +24,22 @@ class Link(object):
         if s != "":
             s = s[0:len(s)-3]
         print(s)
+    def generate_scp_data(self, fname):
+        f = open(fname)
+        ips=""
+        macs=""
+        users=""
+        for nd in self.nodes:
+            ips += nd.nip + ","
+            macs += nd.nid + ","
+            users += nd.username + ","
+        ips = ips[0:len(ips)-1] 
+        macs = macs[0:len(macs)-1]
+        users = users[0:len(users)-1]
+        f.writeline(ips)
+        f.writeline(macs)
+        f.writeline(users)
+        f.close()
     def insert(self, lnode):
         if not isinstance(lnode, node.Node):
             raise TypeError("[Link/insert]: node is not Node type")

@@ -8,16 +8,20 @@ import link
 
 lstore = link.LinkStore('.paths.data')
 
-def search(link=None, tags=None):
-    lstore.search(link, tags)
+def generate_scp_data(path, fname):
+    path.generate_scp_data(fname)
+def get(idx):
+    lstore.get(idx)
+def search(path=None, tags=None):
+    lstore.search(path, tags)
 def search_by_target(source, target):
     lstore.search_by_target(source, target)
-def insert(link):
-    lstore.insert(link)
-def remove(link):
-    lstore.remove(link)
-def update(idx, link):
-    lstore.update(idx, link)
+def insert(path):
+    lstore.insert(path)
+def remove(path):
+    lstore.remove(path)
+def update(idx, path):
+    lstore.update(idx, path)
 def store():
     lstore.store()
 def restore():

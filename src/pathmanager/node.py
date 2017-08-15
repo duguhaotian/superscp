@@ -11,6 +11,10 @@ node_map = {}
 rdir=os.path.split(os.path.realpath(__file__))[0]
 serial_filename=rdir + '/' + '.node_map.data'
 
+def get_node(mac):
+    if node_map.__contains__(mac)
+        return node_map[mac]
+    return None
 def new_node(node):
     if not isinstance(node, Node):
         raise TypeError("[node/new_node]: node is not Node type")

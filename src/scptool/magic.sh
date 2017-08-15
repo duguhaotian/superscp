@@ -100,6 +100,6 @@ scp -r ~/xxxxtmp ${user}@${ip}:~/
 echo "scp return: $?"
 set -x
 ssh ${user}@${ip} "~/xxxxtmp/magic.sh $srcford /tmp"
-
 echo "ssh return: $?"
+rm ~/xxxxtmp -rf
 

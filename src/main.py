@@ -6,6 +6,7 @@ import sys
 from pathmanager import node 
 from pathmanager import link 
 from pathmanager import paths 
+from pathmanager import tool 
 
 def usage():
     show="usage:\n\
@@ -53,8 +54,20 @@ def superscp():
         return
     print("source: %s, targetip: %s, targetdir: %s" % (sys.argv[2], sys.argv[3], sys.argv[4]))
 
+    ips = tool.get_ips()
+    for key,value in ips.items():
+        print("key: %s --- ip: %s" % (key, value))
+        mac = tool.get_mac(key)
+        srcnode = node.get_node(mac)
+        if srcnode == None:
+            continue
+        paths.search_by_target()
+    paths.generate("testxxxx")
+
 
 if __name__ == '__main__':
+    #node.restore()
+    #paths.restore()
     cmds = {
             'insertLinks': insert_data,
             'superscp': superscp
