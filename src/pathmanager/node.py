@@ -11,6 +11,14 @@ node_map = {}
 rdir=os.path.split(os.path.realpath(__file__))[0]
 serial_filename=rdir + '/' + '.node_map.data'
 
+def find_by_ip(ip):
+    if ip is None:
+        return None
+    rt=[]
+    for key,value in node_map.items():
+        if value.nip == ip:
+            rt.append(value)
+    return rt
 def get_node(mac):
     if node_map.__contains__(mac)
         return node_map[mac]
