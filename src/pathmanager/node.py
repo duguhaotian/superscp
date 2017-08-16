@@ -62,6 +62,10 @@ class Node:
         self.describe = describe 
         self.tags = None
         self.prehost = None
+    def show(self):
+        rt = "Node detail: ip is %s, mac is %s, hostname is %s \n\
+                describe is %s." % (self.nip, self.nid, self.hostname, self.describe)
+        return rt
     def set_prehost(self, prehost):
         'set node depend on host id'
         if isinstance(prehost, Node):

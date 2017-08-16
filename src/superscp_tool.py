@@ -42,11 +42,25 @@ def superscp(argv):
         print("current host is not register")
         return
 
-    print("node ip,mac,user: %s, %s, %s" % (srcnode.nip, srcnode.nid, srcnode.username))
+    print(srcnode.show())
 
-'''
     tnodes = node.find_by_ip(tip)
-    for tnode in tnodes:
-        paths.search_by_target(srcnode, tnodes)
-    paths.generate("testxxxx")
-'''
+    tnode = None
+    if len(tnodes) > 1:
+        i = 0
+        print("***********************************")
+        for tmp in tnodes:
+            print("%d. %s" % (i, tmp.show()))
+            i += 1
+        print("***********************************")
+        select = input("which target ip use to scp, select the index: ")
+        tnode = tnodes[select]
+    elif len(tnodes) < 1:
+        print("can not find target node by target ip : %s" % tip)
+        return
+    else:
+        tnode = tnodes[0]
+    
+    #idxs = paths.search_by_target(srcnode, tnode)
+    #paths.generate("testxxxx")
+
