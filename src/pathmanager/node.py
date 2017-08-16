@@ -11,6 +11,10 @@ node_map = {}
 rdir=os.path.split(os.path.realpath(__file__))[0]
 serial_filename=rdir + '/' + '.node_map.data'
 
+def show():
+    print("show ---------")
+    for key,value in node_map.items():
+        print("mac: %s, ip: %s" % (key, value.nip))
 def find_by_ip(ip):
     if ip is None:
         return None
@@ -41,7 +45,11 @@ def store():
     f.close()
 def restore():
     f = open(serial_filename, 'rb')
+    global node_map
     node_map = pickle.load(f)
+    print("--------restore-----------") 
+    for key,value in node_map.items():
+        print("mac: %s, ip: %s" % (key, value.nip))
     f.close()
 
 class Node:
@@ -75,6 +83,8 @@ class Node:
         'set node describe, describe good for user to know which node is it.'
         self.describe = describe
     def __eq__(self, other):
+        if other is None:
+            return False
         if not isinstance(other, Node):
             raise TypeError("[Node/__eq__]: other is not Node type")
         if self.nid == other.nid and self.nip == other.nip:

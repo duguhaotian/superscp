@@ -4,6 +4,8 @@
 import sys
 import superscp_tool 
 import node_data_manager 
+from pathmanager import node 
+from pathmanager import paths 
 
 def usage(argv):
     show="usage:\n\
@@ -13,8 +15,9 @@ def usage(argv):
     print(show)
 
 if __name__ == '__main__':
-    #node.restore()
-    #paths.restore()
+    node.restore()
+    node.show()
+    paths.restore()
     cmds = {
             'insertLinks': node_data_manager.insert_data,
             'superscp': superscp_tool.superscp
