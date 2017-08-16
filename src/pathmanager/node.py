@@ -12,9 +12,10 @@ rdir=os.path.split(os.path.realpath(__file__))[0]
 serial_filename=rdir + '/' + '.node_map.data'
 
 def show():
-    print("show ---------")
+    print("--------------show-----------")
     for key,value in node_map.items():
         print("mac: %s, ip: %s" % (key, value.nip))
+    print("-----------------------------")
 def find_by_ip(ip):
     if ip is None:
         return None
@@ -47,9 +48,6 @@ def restore():
     f = open(serial_filename, 'rb')
     global node_map
     node_map = pickle.load(f)
-    print("--------restore-----------") 
-    for key,value in node_map.items():
-        print("mac: %s, ip: %s" % (key, value.nip))
     f.close()
 
 class Node:
