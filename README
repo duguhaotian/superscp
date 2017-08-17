@@ -1,7 +1,33 @@
 superscp is a tool which can scp hostA's dir or file to hostB,
 import is hostA and hostB is not in same vlan. For example:
 
-HostA's IP is 192.168.0.8
-HostB's IP is 10.10.10.10
+HostA's IP is 10.10.10.10
+HostB's IP is 192.168.0.8
 
+
+prerequisite:
+
+	1. pip install netifaces 
+	2. add prehost public ssh key to nexthost's /.ssh/authorized_keys
+
+Usage:
+
+	1. write your paths into {link_data_file} file
+	2. use 'python main.py insertLinks {link_data_file}' command to insert
+	your superscp path    
+	3. use 'python main.py superscp {source_file/dir}  {target_ip}
+{target_dir}' to scp your file or dir to tarte_dir on host which ip is target_ip 	
+
+note:
+
+link_data_file format:
+
+name: {pathname}
+node_mac,node_ip,node_username,node_netmask,node_hostname,node_describe
+node_mac,node_ip,node_username,node_netmask,node_hostname,node_describe
+node_mac,node_ip,node_username,node_netmask,node_hostname,node_describe
+name: {pathname2}
+node_mac,node_ip,node_username,node_netmask,node_hostname,node_describe
+node_mac,node_ip,node_username,node_netmask,node_hostname,node_describe
+node_mac,node_ip,node_username,node_netmask,node_hostname,node_describe
 
