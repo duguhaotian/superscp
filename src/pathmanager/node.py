@@ -34,13 +34,13 @@ def new_node(node):
     if not isinstance(node, Node):
         raise TypeError("[node/new_node]: node is not Node type")
     if node_map.__contains__(node.nid):
-        raise ValueError("[node/new_node]: key is exist.")
+        raise KeyError("[node/new_node]: key is exist.")
     node_map[node.nid] = node
 def rm_node(node):
     if not isinstance(node, Node):
         raise TypeError("[node/rm_node]: node is not Node type")
     if not node_map.__contains__(node.nid):
-        raise ValueError("[node/rm_node]: key do not in map.")
+        raise KeyError("[node/rm_node]: key do not in map.")
     del node_map[node.nid]
 def store():
     f = open(serial_filename, 'wb')

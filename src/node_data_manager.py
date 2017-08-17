@@ -31,7 +31,11 @@ def insert_data(argv):
             print("invalid data line: %s" % line)
             continue
         tnode = node.Node(strs[0], strs[1], strs[2], strs[3], strs[4], strs[5]) 
-        node.new_node(tnode)
+        try:
+            node.new_node(tnode)
+        except KeyError:
+            print("%s exist", tnode.show())
+            continue
         path.insert(tnode)
 
     print(path.show())
