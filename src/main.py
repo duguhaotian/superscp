@@ -24,6 +24,6 @@ if __name__ == '__main__':
     
     if len(sys.argv) < 2:
         usage(None)
-        exit(-1)
+        sys.exit(1)
     cmds.get(sys.argv[1], usage)(sys.argv)
 

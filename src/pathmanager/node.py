@@ -9,6 +9,8 @@ import pickle
 
 node_map = {}
 rdir=os.path.split(os.path.realpath(__file__))[0]
+if os.path.exists(rdir) is False:
+    os.makedirs(rdir)
 serial_filename=rdir + '/' + '.node_map.data'
 
 def show():
@@ -46,6 +48,7 @@ def store():
     f.close()
 def restore():
     if os.path.exists(serial_filename) is False:
+        print("%s is not exist" % serial_filename)
         return
     f = open(serial_filename, 'rb')
     global node_map

@@ -64,6 +64,8 @@ class LinkStore(object):
     def __init__(self, serial_filename):
         self.links = []
         rdir=os.path.split(os.path.realpath(__file__))[0]
+        if os.path.exists(rdir) is False:
+            os.mkdirs(rdir)
         self.serial_filename = rdir + "/" + serial_filename
     def get(self, idx):
         return self.links[idx]
@@ -123,6 +125,7 @@ class LinkStore(object):
         f.close()
     def restore(self):
         if os.path.exists(self.serial_filename) is False:
+            print("%s is not exists" % self.serial_filename)
             return
         f = open(self.serial_filename, 'rb')
         self.links = pickle.load(f)
