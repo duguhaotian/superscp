@@ -16,7 +16,6 @@ def usage(argv):
 
 if __name__ == '__main__':
     node.restore()
-    node.show()
     paths.restore()
     cmds = {
             'insertLinks': node_data_manager.insert_data,

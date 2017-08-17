@@ -11,11 +11,11 @@ lstore = link.LinkStore('.paths.data')
 def generate_scp_data(path, fname):
     path.generate_scp_data(fname)
 def get(idx):
-    lstore.get(idx)
+    return lstore.get(idx)
 def search(path=None, tags=None):
-    lstore.search(path, tags)
+    return lstore.search(path, tags)
 def search_by_target(source, target):
-    lstore.search_by_target(source, target)
+    return lstore.search_by_target(source, target)
 def insert(path):
     lstore.insert(path)
 def remove(path):

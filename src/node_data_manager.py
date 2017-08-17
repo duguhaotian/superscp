@@ -34,7 +34,7 @@ def insert_data(argv):
         node.new_node(tnode)
         path.insert(tnode)
 
-    path.show()
+    print(path.show())
     paths.insert(path)
     paths.store()
     node.store()

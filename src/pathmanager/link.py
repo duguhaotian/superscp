@@ -16,6 +16,8 @@ class Link(object):
         self.name = name
     def get(self):
         return self.nodes
+    def get_node(self, idx):
+        return self.nodes[idx]
     def show(self):
         s = ""
         for nd in self.nodes:
@@ -23,9 +25,9 @@ class Link(object):
             s += "-->"
         if s != "":
             s = s[0:len(s)-3]
-        print(s)
+        return s
     def generate_scp_data(self, fname):
-        f = open(fname)
+        f = open(fname, 'w')
         ips=""
         macs=""
         users=""
@@ -33,12 +35,13 @@ class Link(object):
             ips += nd.nip + ","
             macs += nd.nid + ","
             users += nd.username + ","
-        ips = ips[0:len(ips)-1] 
-        macs = macs[0:len(macs)-1]
-        users = users[0:len(users)-1]
-        f.writeline(ips)
-        f.writeline(macs)
-        f.writeline(users)
+        ips = ips[0:len(ips)-1] + '\n' 
+        macs = macs[0:len(macs)-1] + '\n'
+        users = users[0:len(users)-1] + '\n'
+
+        f.write(ips)
+        f.write(macs)
+        f.write(users)
         f.close()
     def insert(self, lnode):
         if not isinstance(lnode, node.Node):
@@ -65,15 +68,16 @@ class LinkStore(object):
     def get(self, idx):
         return self.links[idx]
     def search_by_target(self, source, target):
+        rt = []
         if source == None or target == None:
-            return
+            print("[LinkStore/search_by_target]: source or target is None")
+            return rt
         if not isinstance(source, node.Node) or not isinstance(target, node.Node):
             raise TypeError("[LinkStore/search_by_target]: source or target is not Node type")
-        rt = []
         i = -1
         for tl in self.links:
             i += 1
-            if source.nid == tl[0].nid and target.nid == tl[-1].nid:
+            if source.nid == tl.get_node(0).nid and target.nid == tl.get_node(-1).nid:
                 rt.append(i)
         return rt
     def search(self, link=None, tags=None):

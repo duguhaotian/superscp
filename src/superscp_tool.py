@@ -3,6 +3,7 @@
 
 import os
 import sys
+import subprocess
 from pathmanager import node 
 from pathmanager import link 
 from pathmanager import paths 
@@ -36,7 +37,6 @@ def superscp(argv):
         srcnid = ips.kes()[0]
 
     srcnid = tool.get_mac(srcnid)
-    print("srcnid: %s" % srcnid)
     srcnode = node.get_node(srcnid)
     if srcnode == None:
         print("current host is not register")
@@ -60,7 +60,31 @@ def superscp(argv):
         return
     else:
         tnode = tnodes[0]
+
+    print(tnode.show())
     
-    #idxs = paths.search_by_target(srcnode, tnode)
-    #paths.generate("testxxxx")
+    idxs = paths.search_by_target(srcnode, tnode)
+    path = None
+    if len(idxs) > 1:
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        i = 0
+        for idx in idxs:
+            print("%d. %s" % (i, paths.get(idx).show()))
+            i += 1
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        select = input("select one path to scp, which index you chose: ")
+        path = paths.get(idxs[i])
+    elif len(idxs) < 1:
+        print("cannot find sourceip: %s to targetip: %s path" % (srcnode.nip, tnode.nip))
+        return
+    else:
+        path = paths.get(idxs[0])
+
+    rdir=os.path.split(os.path.realpath(__file__))[0]
+    scpfname = rdir + "/scptool/.data.superscp"
+    paths.generate_scp_data(path, scpfname)
+
+    cmdstr = rdir+"/scptool/magic.sh " + src + " " + tdir 
+    rts = subprocess.check_output(cmdstr, shell=True).decode().strip()
+    print("magic return: %s", rts)
 

@@ -82,16 +82,16 @@ if [ $idx -eq 1 ];then
 		echo "----invalid source file or dir parameter----"
 		exit -1
 	fi
-	cd $srcford
-	srcford=`pwd`
-	cd -
 	if [ -d $srcford ];then
 		cp -r $srcford ~/xxxxtmp/
+		cd $srcford
+		srcford=`pwd`
+		cd -
 	elif [ -f $srcford ];then
 		cp $srcford ~/xxxxtmp/
 	fi
-	cp magic.sh ~/xxxxtmp/
-	cp .data.superscp ~/xxxxtmp/
+	cp ${bashpath}/magic.sh ~/xxxxtmp/
+	cp ${datafname} ~/xxxxtmp/
 	srcford=$(basename $srcford)
 	echo "-----new name=${srcford}--------"
 fi
