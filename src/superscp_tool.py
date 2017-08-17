@@ -34,7 +34,7 @@ def superscp(argv):
         print("no ether for scp")
         return
     else:
-        srcnid = ips.kes()[0]
+        srcnid = ips.keys()[0]
 
     srcnid = tool.get_mac(srcnid)
     srcnode = node.get_node(srcnid)
