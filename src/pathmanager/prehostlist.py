@@ -33,6 +33,8 @@ class PrehostMap(object):
         f = open('.prehost.dset', 'wb')
         pickle.dump(self.dset, f)
     def restore(self):
+        if os.path.exists('.prehost.dmap') is False:
+            return
         f = open('.prehost.dmap', 'rb')
         self.dmap = pickle.load(f)
         f = open('.prehost.dset', 'rb')

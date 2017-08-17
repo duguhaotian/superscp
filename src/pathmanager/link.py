@@ -122,6 +122,8 @@ class LinkStore(object):
         pickle.dump(self.links, f)
         f.close()
     def restore(self):
+        if os.path.exists(self.serial_filename) is False:
+            return
         f = open(self.serial_filename, 'rb')
         self.links = pickle.load(f)
         f.close()

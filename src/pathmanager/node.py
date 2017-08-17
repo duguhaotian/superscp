@@ -45,6 +45,8 @@ def store():
     pickle.dump(node_map, f)
     f.close()
 def restore():
+    if os.path.exists(serial_filename) is False:
+        return
     f = open(serial_filename, 'rb')
     global node_map
     node_map = pickle.load(f)
